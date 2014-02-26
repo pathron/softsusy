@@ -10880,11 +10880,14 @@ void Softsusy<SoftPars>::minparSLHA(ostream & out, const char model [],
     printRow(out, double(sgnMu)); 
     out << "   # sign(mu)"<< endl;
   }
-  if (!strcmp(model, "sugra")) {
+
+  //  if (!strcmp(model, "sugra")) {
+  if(displayMxBC() > 1e10){
     out << "     1   "; printRow(out, pars.display(1)); out << "   # m0" << endl;
     out << "     2   "; printRow(out, pars.display(2)) ; out << "   # m12" << endl;
     out << "     5   "; printRow(out, pars.display(3)) ; out << "   # A0" << endl;
-    printMX = true;
+    // printMX = true;
+    extparSLHA(out, pars, ewsbBCscale);
   }
   else if (!strcmp(model, "gmsb")) {
     out << "     1   "; printRow(out, pars.display(3)); out << "   # lambda" << endl;

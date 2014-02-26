@@ -23,7 +23,7 @@ Block SOFTSUSY               # SOFTSUSY specific inputs
     5   1.000000000E+00      # 2-loop running
     3   0.000000000E+00      # printout
    15   1.000000000E+00      # NMSSMTools compatible output (default: 0)
-   16   0.000000000E+00      # Call micrOmegas (default: 0 = no)
+   16   1.000000000E+00      # Call micrOmegas (default: 0 = no)
    17   1.000000000E+00      # Sparticle decays via NMSDECAY (default: 0)
    18   0.000000000E+00      # use soft Higgs masses as EWSB output
 Block VCKMIN                 # input parameters for CKM matrix
@@ -38,8 +38,8 @@ Block EXTPAR  # Input parameters
 #   24   0                    # Bmu / (cos(beta) * sin(beta))
    61   0.1                  # lambda
 #   62   0.1                  # kappa
-#   63   1000                 # A_lambda
-#   64   1000                 # A_kappa
+  63   1000                 # A_lambda
+  64   1000                 # A_kappa
 #   65   1000                 # lambda * <S>
 #   66   0                    # xi_F
 #   67   0                    # xi_S
@@ -47,7 +47,7 @@ Block EXTPAR  # Input parameters
 #   69   0                    # m'_S^2
 #   70   1000                 # m_S^2
 Block QEXTPAR
-#   61   -1                   # input lambda at Msusy
+  61   -1                   # input lambda at Msusy
 #   62   -1                   # input kappa at Msusy
    65   -1                   # input lambda * <S> at Msusy
 #   66   -1                   # input xi_F at Msusy

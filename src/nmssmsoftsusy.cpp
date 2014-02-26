@@ -8794,7 +8794,6 @@ void NmssmSoftsusy::lowOrg
 void NmssmSoftsusy::modselSLHA(ostream & out, const char model[], double qMax) {
   Softsusy<SoftParsNmssm>::modselSLHA(out, model);
   out << "     3    1   # NMSSM\n";
-
   if (softsusy::NMSSMTools) {
     out << "     9    " << softsusy::MICROMEGAS;
     out << "   # call micrOmegas (default: 0 = no)\n";

@@ -44,6 +44,8 @@ private:
    double tSOVSMs1loop; ///<New Nmssm DRbar tadpole(MSusy): excl 2 loops
    /// LCT: Returns logarithm factor from one-loop effective potential
    double looplog(double mass) const;
+   //PA: adding mSGUT
+   double mSGUT;
 
 public:
 //  void (*boundaryCondition)(NmssmSoftsusy &, const DoubleVector &);
