@@ -107,7 +107,7 @@
 
 *   RGEs for the soft terms
 *   Uncomment to use this to get Highscale parameters
-      CALL RGESOFT(PAR,IFAIL)
+*      CALL RGESOFT(PAR,IFAIL)
       
 *   Get effective coouplings needed for RELDEN
       
@@ -409,8 +409,16 @@
        IF(IX.EQ.64) AKGUT = VAL
        IF(IX.EQ.63) ALINP = VAL
        IF(IX.EQ.64) AKINP = VAL
+       IF(IX.EQ.33) M0 = VAL !setting m0 from a scalar masses at mx
+       IF(IX.EQ.2) M12=VAL !setting m12 from a gaugino masses at mx
+       IF(IX.EQ.12) A0=VAL !setting A0 from a trilinear at mx
        IF(IX.EQ.63) PRINT *,"setting ALGUT = ", ALGUT
        IF(IX.EQ.64) PRINT *,"setting AKGUT = ", AKGUT
+*   READ MS2GUT
+       ELSEIF(CHBLCK(1:7).EQ.'MSSQGUT')THEN
+          READ(CHINL,*,ERR=999) IX,VAL
+          IF(IX.EQ.1)MSGUT = VAL
+
 *     READ NMSSMRUN
       ELSEIF(CHBLCK(1:8).EQ.'NMSSMRUN')THEN
        READ(CHINL,*,ERR=999) IX,VAL   
@@ -670,6 +678,12 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
       ELSE
          AKFLAG=1
       ENDIF
+      IF(MSGUT.EQ.1d99)THEN
+         MSGUT=A0
+      ELSE
+         MSFLAG=1
+      ENDIF
+
        PRINT *, "after setting ALFLAG = ", ALFLAG
       PRINT *, "after setting AKFLAG = ", AKFLAG
       IF(SMASS(1).EQ.1d99)THEN
