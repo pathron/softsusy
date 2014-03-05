@@ -51,12 +51,6 @@
 *     Reading of SLHA input file
       
       CALL SLHAINPUT(PAR,NPAR)
-      PRINT *, "after slhainput"
-      PRINT *, "M0=",M0
-      PRINT *, "M12=",M12
-      PRINT *, "A0=",A0
-      PRINT *, "ALGUT=",ALGUT
-      PRINT *, "AKGUT=",AKGUT
 
       CALL NONSLHAINPUT
       DO I=1,NPROB
@@ -412,8 +406,7 @@
        IF(IX.EQ.33) M0 = VAL !setting m0 from a scalar masses at mx
        IF(IX.EQ.2) M12=VAL !setting m12 from a gaugino masses at mx
        IF(IX.EQ.12) A0=VAL !setting A0 from a trilinear at mx
-       IF(IX.EQ.63) PRINT *,"setting ALGUT = ", ALGUT
-       IF(IX.EQ.64) PRINT *,"setting AKGUT = ", AKGUT
+       
 *   READ MS2GUT
        ELSEIF(CHBLCK(1:7).EQ.'MSSQGUT')THEN
           READ(CHINL,*,ERR=999) IX,VAL
@@ -598,10 +591,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
 *   g1,g2  and sin(theta)^2 in the on-shell scheme in terms of
 *   GF, MZ(pole) and MW(pole)
       
-      PRINT *, "after read "
-      PRINT *, "ALGUT = ", ALGUT
-      PRINT *, "AKGUT = ", AKGUT
-      g2=4d0*DSQRT(2d0)*GF*MW**2
+     
       g1=4d0*DSQRT(2d0)*GF*(MZ**2-MW**2)
       S2TW=1d0-(MW/MZ)**2
 
@@ -663,10 +653,6 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
          MSMU2=MSMUL
       ENDIF
 
-      PRINT *, "before check for errors ALFLAG = ", ALFLAG
-      PRINT *, "before check for errors AKFLAG = ", AKFLAG
-      PRINT *, "before check for errors ALGUT = ", ALGUT
-      PRINT *, "before check for errors AKGUT = ", AKGUT
 *   Check for errors
       IF(ALGUT.EQ.1d99)THEN
          ALGUT=A0
@@ -684,8 +670,6 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
          MSFLAG=1
       ENDIF
 
-       PRINT *, "after setting ALFLAG = ", ALFLAG
-      PRINT *, "after setting AKFLAG = ", AKFLAG
       IF(SMASS(1).EQ.1d99)THEN
          WRITE(0,1)"mh0(1) MUST BE GIVEN IN BLOCK MASS" 
          ERR=1
@@ -942,7 +926,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
       DOUBLE PRECISION DELMB,PX,PA(6),PB(2),PL(7),PK(8),MH(3),MMH(3)
       DOUBLE PRECISION DMH(3),MA(2),MMA(2),DMA(2),MHC,MMHC,DMHC
       DOUBLE PRECISION MHmin,MHmax,chi2max,chi2gam,chi2bb,chi2zz
-      DOUBLE PRECISION LUX,PRINTCHANNELS,omg_
+      DOUBLE PRECISION XENON100,PRINTCHANNELS,omg_
       
       
       COMMON/PFLAG/PFLAG
@@ -1066,7 +1050,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
       IF(PROB(30).EQ.-1d0)
      . WRITE(17,900) 3,"# Problem in micrOMEGAs"
       IF(PROB(31).NE.0d0)WRITE(17,900) 3,
-     . "# Excluded by LUX"
+     . "# Excluded by Xenon100"
       IF(PROB(32).NE.0d0)
      . WRITE(17,900) 3,"# b -> s gamma more than 2 sigma away"
       IF(PROB(33).NE.0d0)
@@ -1329,7 +1313,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
       ENDIF
       IF(OMGFLAG.EQ.2 .OR. OMGFLAG.EQ.4)THEN
 	WRITE(17,907)"# sigma(p)_SI (allowed: sigma_p^SI < ",
-     .   LUX(DABS(MNEU(1))),"):"
+     .   XENON100(DABS(MNEU(1))),"):"
 	WRITE(17,901) 20,CSPSI,"sigma_p^SI"
 	WRITE(17,915)"# values used for sigma_piN,sigma_S",
      .  " (strange content of the proton)"
@@ -2417,7 +2401,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
       IF(PROB(30).LT.0d0.AND.PROB(30).NE.-1d0.AND.PROB(30).NE.-2d0)
      . WRITE(19,900) 3,"# Relic density too small (WMAP)"
       IF(PROB(31).NE.0d0)WRITE(19,900) 3,
-     . "# Excluded by LUX"
+     . "# Excluded by Xenon100"
       IF(IFAIL.EQ.0.OR.IFAIL.GE.10)THEN
         IF(OMGFLAG.NE.0)CALL printRelDen(PROB,19) 
       ELSE
