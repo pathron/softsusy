@@ -44,8 +44,8 @@ private:
    double tSOVSMs1loop; ///<New Nmssm DRbar tadpole(MSusy): excl 2 loops
    /// LCT: Returns logarithm factor from one-loop effective potential
    double looplog(double mass) const;
-   //PA: adding mSGUT
-   double mSGUT;
+   //PA: adding GUT value of mS^2 which may be helpful to store.
+   double MS2GUT;
 
 public:
 //  void (*boundaryCondition)(NmssmSoftsusy &, const DoubleVector &);
@@ -546,6 +546,8 @@ virtual  void treeChargedSlepton(DoubleMatrix & mass, double mTrun, double pizzt
   /// EXTPAR block of SLHA
   virtual void extparSLHA(ostream & out, const DoubleVector & pars,
 			  bool ewsbBCscale);
+  //New SLHA routine to print new block for mS^2(M_X) 
+  virtual void msgutSLHA(ostream & out);
   /// higgs part of mass block of SLHA
   virtual void higgsMSLHA(ostream & out);
   /// neutralino and charigno part of mass block of SLHA
@@ -579,12 +581,12 @@ virtual  void treeChargedSlepton(DoubleMatrix & mass, double mTrun, double pizzt
 };
 
 inline NmssmSoftsusy::NmssmSoftsusy()
-                     : Softsusy<SoftParsNmssm>(), tSOVSMs(0.0), tSOVSMs1loop(0.0)  {}
+   : Softsusy<SoftParsNmssm>(), tSOVSMs(0.0), tSOVSMs1loop(0.0), MS2GUT(0.0) {}
 
 
 inline NmssmSoftsusy::NmssmSoftsusy(const NmssmSoftsusy & s)
 		     : Softsusy<SoftParsNmssm>(s),
-                     tSOVSMs(s.tSOVSMs), tSOVSMs1loop(s.tSOVSMs1loop)  {
+   tSOVSMs(s.tSOVSMs), tSOVSMs1loop(s.tSOVSMs1loop), MS2GUT(s.MS2GUT)  {
    
    setPars(121);   
 }
@@ -592,20 +594,20 @@ inline NmssmSoftsusy::NmssmSoftsusy(const NmssmSoftsusy & s)
 
 inline NmssmSoftsusy::NmssmSoftsusy(const MssmSoftsusy & s)
 		     : Softsusy<SoftParsNmssm>(s),
-                     tSOVSMs(0), tSOVSMs1loop(0)  {
+                     tSOVSMs(0), tSOVSMs1loop(0), MS2GUT(0.0)  {
    setPars(121);   
 }
 
 
 inline NmssmSoftsusy::NmssmSoftsusy(const NmssmSusy &s)
-                     : Softsusy<SoftParsNmssm>(s),tSOVSMs(0.0), tSOVSMs1loop(0.0)  {
+                     : Softsusy<SoftParsNmssm>(s),tSOVSMs(0.0), tSOVSMs1loop(0.0), MS2GUT(0.0) {
   setPars(121);
 }
 
 
 inline NmssmSoftsusy::NmssmSoftsusy
 (const SoftParsNmssm & s, const sPhysical & sp, double mu, int l, int t,
- double hv): Softsusy<SoftParsNmssm>(s, sp, mu, l, t, hv),tSOVSMs(0.0), tSOVSMs1loop(0.0)  {
+ double hv): Softsusy<SoftParsNmssm>(s, sp, mu, l, t, hv),tSOVSMs(0.0), tSOVSMs1loop(0.0), MS2GUT(0.0)  {
  setPars(121);
   
 }

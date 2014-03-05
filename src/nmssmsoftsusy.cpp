@@ -8512,7 +8512,7 @@ void NmssmSoftsusy::itLowsoft
 	flagMgutOutOfBounds(true);
       }
     }
-    
+   
     boundaryCondition(*this, pars);
     if(softsusy::GUTlambda) setLambda(nmpars(1));
     if (softsusy::GUTkappa && (!softsusy::Z3 || softsusy::SoftHiggsOut))
@@ -8523,6 +8523,7 @@ void NmssmSoftsusy::itLowsoft
       setXiF(nmpars(4));
     if (softsusy::GUTmuPrime && !softsusy::Z3)
       setMupr(nmpars(5));
+    MS2GUT = displayMsSquared();
 
     if (!ewsbBCscale) err = runto(displayMsusy(), eps);
 
@@ -8683,7 +8684,7 @@ void NmssmSoftsusy::lowOrg
     t.setLoops(2); /// 2 loops should protect against ht Landau pole 
     t.runto(mxBC); 
     setSusy(t);
-
+    
     /// Initial guess: B=0, mu=1st parameter, need better guesses
     boundaryCondition(*this, pars);
     if(softsusy::GUTlambda) setLambda(nmpars(1));
@@ -8819,7 +8820,11 @@ void NmssmSoftsusy::extparSLHA(ostream & out,
     out << "  # mS^2(MX)\n";
   }
 }
-
+void NmssmSoftsusy::msgutSLHA(ostream & out) {
+   out << "Block MSSQGUT            #extra block to pass GUt scale value of Ms^2" << endl;
+   out << "     1  "; printRow(out, MS2GUT);
+   out << "  # mS^2(MX)\n";
+}
 void NmssmSoftsusy::higgsMSLHA(ostream & out) {
   out << "        25    "; printRow(out, displayPhys().mh0(1)); out << "   # h0(1)\n";
   out << "        35    "; printRow(out, displayPhys().mh0(2)); out << "   # h0(2)\n";
@@ -9110,13 +9115,14 @@ void NmssmSoftsusy::lesHouchesAccordOutput(ostream & out, const char model[],
     if (close(qMax, 0., EPSTOL) || qMax < 0.)
       qMax = displayMsusy();
   }
-
+  
   int nn = out.precision();
   headerSLHA(out);
   spinfoSLHA(out);
   modselSLHA(out, model, qMax);
   sminputsSLHA(out);
   minparSLHA(out, model, pars, tanb, sgnMu, ewsbBCscale);
+  msgutSLHA(out);
   softsusySLHA(out);
 
   if (!displayProblem().testSeriousProblem() || printRuledOutSpectra) {
