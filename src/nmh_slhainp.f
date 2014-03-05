@@ -591,7 +591,7 @@ c$$$       IF(IX.EQ.21)MHSS=VAL !mH1^2
 *   g1,g2  and sin(theta)^2 in the on-shell scheme in terms of
 *   GF, MZ(pole) and MW(pole)
       
-     
+      g2=4d0*DSQRT(2d0)*GF*MW**2
       g1=4d0*DSQRT(2d0)*GF*(MZ**2-MW**2)
       S2TW=1d0-(MW/MZ)**2
 
