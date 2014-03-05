@@ -117,16 +117,16 @@
        IF(PROB(I).NE.0d0)IFAIL=10
       ENDDO
 
-*   Computation of the fine-tuning
-
-      print *, "added call to ftpar"
-
-      CALL FTPAR(PAR,1)
-
 
 *   Sparticle decays
 
       CALL NMSDECAY(PAR)
+
+
+*   Computation of the fine-tuning
+
+      CALL FTPAR(PAR,1)
+
 
 *   Recording of the results
       
